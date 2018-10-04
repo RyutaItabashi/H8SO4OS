@@ -1,8 +1,8 @@
-  .h3800h
+  .h8300h
   .section .text
   .global _start
   .type _start,@function
-_start
+_start:
   mov.l #0xffff00,sp
   jsr @_main
 1:

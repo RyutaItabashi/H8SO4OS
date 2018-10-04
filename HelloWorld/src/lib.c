@@ -3,8 +3,8 @@
 #include "lib.h"
 
 int putc(unsigned char c) {
-  if (c == '\n') serial_send_byte(SERIAL_DEFAULT_SERVICE, '\r');
-  return serial_send_byte(SERIAL_DEFAULT_SERVICE, c);
+  if (c == '\n') serial_send_byte(SERIAL_DEFAULT_DEVICE, '\r');
+  return serial_send_byte(SERIAL_DEFAULT_DEVICE, c);
 }
 
 int puts(unsigned char *str) {
