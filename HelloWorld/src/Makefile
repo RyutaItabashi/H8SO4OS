@@ -1,5 +1,5 @@
 PREFIX = /usr/local
-ARCH = h3800-elf
+ARCH = h8300-elf
 BINDIR = $(PREFIX)/bin
 ADDNAME = $(ARCH)-
 
