@@ -15,7 +15,7 @@ STRIP = $(BINDIR)/$(ADDNAME)strip
 
 H8WRITE = h8write
 
-H8WRITE_SERDEV =/dev/ttySx
+H8WRITE_SERDEV =/dev/ttyUSB0
 
 OBJS = vector.o startup.o main.o
 OBJS += lib.o serial.o
@@ -45,13 +45,13 @@ $(TARGET) : $(OBJS)
 .s.o : $<
 	$(CC) -c $(CFLAGS) $<
 
-$(TARGET.mot) : $(TARGET)
+$(TARGET).mot : $(TARGET)
 	$(OBJCOPY) -O srec $(TARGET) $(TARGET).mot
 
 image : $(TARGET).mot
 
 write : $(TARGET).mot
-	$(H8WRITE) -3039 -f20 $(TARGET).mot $(H8WRITE_SERDEV)
+	$(H8WRITE) -3069 -f20 $(TARGET).mot $(H8WRITE_SERDEV)
 
 clean :
 	rm -f $(OBJS) $(TARGET) $(TARGET).elf $(TARGET).mot

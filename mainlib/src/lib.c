@@ -3,7 +3,7 @@
 #include "lib.h"
 
 void *memset(void *b, int c, long len) {
-		chap *p;
+		char *p;
 		for (p = b;len > 0;len--)
 				*(p++) = c;
 		return b;
@@ -74,4 +74,26 @@ int puts(unsigned char *str) {
 		while(*str)
 				putc(*(str++));
 		return 0;
+}
+
+/* 数値の16進表示 */
+int putxval(unsigned long value, int column) {
+	char buf[9];
+	char *p;
+
+	p = buf + sizeof(buf) - 1;
+	*(p--) = '\0';
+
+	if (!value && !column) {
+		column++;
+	}
+	while (value || column) {
+		*(p--) = "0123456789abcdef"[value & 0xf];
+		value >>= 4;
+		if (column) column--;
+	}
+
+	puts(p + 1);
+
+	return 0;
 }
