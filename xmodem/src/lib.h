@@ -10,7 +10,8 @@ int strcmp(const char *s1, const char *s2);
 int strnmap(const char *s1, const char *s2, int len);
 
 int putc(unsigned char c);
+unsigned char getc(void);
 int puts(unsigned char *str);
-
+int gets(unsigned char *buf);
 int putxval(unsigned long value, int column);
 #endif
