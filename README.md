@@ -5,3 +5,6 @@
 
 ## Projects
  - Hello World 
+ - Libraries
+ - hex number export
+ - file transfer with xmodem -- still not working
