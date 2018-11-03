@@ -72,7 +72,7 @@ int putc(unsigned char c) {
 
 unsigned char getc(void) {
 	unsigned char c = serial_recv_byte(SERIAL_DEFAULT_DEVICE);
-	c = (c == '/r') ? '\n' : c;
+	c = (c == '\r') ? '\n' : c;
 	putc(c);
 	return c;
 }
@@ -114,4 +114,9 @@ int putxval(unsigned long value, int column) {
 	puts(p + 1);
 
 	return 0;
+}
+int func(int a, int b){
+	volatile int c;
+	c = a + b;
+	return c;
 }

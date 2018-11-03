@@ -33,7 +33,11 @@ static int xmodem_read_block(unsigned char block_number, char *buf) {
 
 	block_num = serial_recv_byte(SERIAL_DEFAULT_DEVICE);
 	if (block_num != block_number)
-		return 1;
+		return -1;
+
+	block_num ^= serial_recv_byte(SERIAL_DEFAULT_DEVICE);
+	if (block_num != 0xff)
+		return -1;
 
 	check_sum = 0;
 	for (i = 0;i<XMODEM_BLOCK_SIZE; i++) {
