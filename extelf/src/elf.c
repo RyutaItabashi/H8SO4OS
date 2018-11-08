@@ -39,8 +39,8 @@ struct elf_program_header {
 };
 
 static int elf_check(struct elf_header *header){
-	if (memcmp(header->id.magic, "/x7f" "ELF", 4))
-		reutrn -1;
+	if (memcmp(header->id.magic, "\x7f" "ELF", 4))
+		return -1;
 
 	if (header->id.class	!= 1) return -1;
 	if (header->id.format	!= 2) return -1;
@@ -57,7 +57,7 @@ static int elf_load_program(struct elf_header *header){
 	int i;
 	struct elf_program_header *phdr;
 
-	for (i=0;i<header->program_header_num;i++){
+	for ( i=0 ; i < header->program_header_num ; i++){
 		phdr = (struct elf_program_header *)
 			((char *)header + header->program_header_offset + 
 			 header->program_header_size * i);
@@ -65,12 +65,12 @@ static int elf_load_program(struct elf_header *header){
 		if (phdr->type != 1)
 			continue;
 
-		putxval(phdr->offset,		6); puts("");
-		putxval(phdr->virtual_addr,	8); puts("");
-		putxval(phdr->physical_addr,8); puts("");
-		putxval(phdr->file_size,	5); puts("");
-		putxval(phdr->memory_size,	5); puts("");
-		putxval(phdr->flags,		2); puts("");
+		putxval(phdr->offset,		6); puts(" ");
+		putxval(phdr->virtual_addr,	8); puts(" ");
+		putxval(phdr->physical_addr,8); puts(" ");
+		putxval(phdr->file_size,	5); puts(" ");
+		putxval(phdr->memory_size,	5); puts(" ");
+		putxval(phdr->flags,		2); puts(" ");
 		putxval(phdr->align,		2); puts("\n");
 	}
 

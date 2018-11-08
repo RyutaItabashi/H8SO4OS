@@ -50,7 +50,6 @@ int main(void) {
 	extern int buffer_start;
 
 	init();
-	func(1,2);
 	puts("kzload (kozos boot loader) started.\n");
 	while(1) {
     	puts("kzload> ");
@@ -72,7 +71,6 @@ int main(void) {
 			dump(loadbuf, size);
 		} else if (!strcmp(buf, "run")) {
 			elf_load(loadbuf);
-		}
 		} else {
 			puts("unknown.\n");
 		}
