@@ -74,7 +74,7 @@ int main(void) {
 		} else if (!strcmp(buf, "run")) {
 			entry_point = elf_load(loadbuf);
 			if (!entry_point) {
-				puts("run error!\n");
+					puts("run error!\n");
 			} else {
 				puts("starting from entry point: ");
 				putxval((unsigned long)entry_point, 0);
