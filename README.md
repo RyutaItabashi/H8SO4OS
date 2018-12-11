@@ -7,4 +7,6 @@
  - Hello World 
  - Libraries
  - hex number export
- - file transfer with xmodem -- still not working
+ - file transfer with xmodem 
+ - load elf binaries to rom
+ - execute elf binaries
