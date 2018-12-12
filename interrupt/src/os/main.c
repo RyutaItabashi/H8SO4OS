@@ -7,7 +7,7 @@
 static void intr(softvec_type_t type, unsigned long sp){
 	int c;
 	static char buf[32];
-	static int len = 0;
+	static int len;
 
 	c = getc();
 
