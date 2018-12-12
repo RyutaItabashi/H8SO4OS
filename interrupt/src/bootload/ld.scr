@@ -7,7 +7,7 @@ MEMORY
 	romall(rx)		: o = 0x000000, l = 0x080000
 	vectors(r)		: o = 0x000000, l = 0x000100
 	rom(rx)			: o = 0x000100, l = 0x07ff00
-
+	softvec(rw)		: o = 0xffbf20, l = 0x000040
 	ramall(rwx)		: o = 0xffbf20, l = 0x004000
 	buffer(rwx)		: o = 0xffdf20, l = 0x001d00
 	data(rwx)		: o = 0xfffc20, l = 0x000300
@@ -16,45 +16,49 @@ MEMORY
 
 SECTIONS
 {
-  .vectors : {
-    vector.o(.data)
-  } > vectors
+	.vectors : {
+		vector.o(.data)
+	} > vectors
 
-  .text : {
-    _text_start = . ;
-    *(.text)
+	.text : {
+		_text_start = . ;
+		*(.text)
 	_etext = . ;
-  } > rom
+	} > rom
 
-  .rodata : {
-    _rodata_start = . ;
-    *(.strings)
-    *(.rodata)
-    *(.rodata.*)
-	_erodata = . ;
-  } > rom
+	.rodata : {
+		_rodata_start = . ;
+		*(.strings)
+		*(.rodata)
+		*(.rodata.*)
+		_erodata = . ;
+	} > rom
 
-  .buffer : {
-  	_buffer_start = . ;
-  } > buffer
+	.softvec : {
+		_softvec = .;
+	}
 
-  .data : {
-  	_data_start = . ;
-    *(.data)
-	_edata = . ;
-  } > data AT> rom
+	.buffer : {
+		_buffer_start = . ;
+	} > buffer
 
-  .bss : {
-    _bss_start = . ;
-    *(.bss)
-    *(COMMON)
-	_ebss = . ;
-  } > data AT> rom
+	.data : {
+		_data_start = . ;
+		*(.data)
+		_edata = . ;
+	} > data AT> rom
 
-  . = ALIGN(4);
-  _end = . ;
+	.bss : {
+		_bss_start = . ;
+		*(.bss)
+		*(COMMON)
+		_ebss = . ;
+	} > data AT> rom
 
-  .stack : {
-  		_stack = .;
-  } > stack
+	. = ALIGN(4);
+	_end = . ;
+
+	.stack : {
+		_stack = .;
+	} > stack
 }
