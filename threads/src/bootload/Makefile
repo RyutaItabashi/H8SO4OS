@@ -15,7 +15,12 @@ STRIP = $(BINDIR)/$(ADDNAME)strip
 
 H8WRITE = h8write
 
-H8WRITE_SERDEV =/dev/ttyUSB0
+# if you are on WSL on Windows, use this one
+ H8WRITE_SERDEV =/dev/ttyS10
+
+#if you are on Linux Native, use this one
+# H8WRITE_SERDEV =/dev/ttyUSBn
+ 
 
 OBJS = vector.o startup.o intr.o main.o interrupt.o
 OBJS += lib.o serial.o xmodem.o elf.o
