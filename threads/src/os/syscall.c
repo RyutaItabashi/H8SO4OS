@@ -1,6 +1,7 @@
 #include "defines.h"
 #include "kozos.h"
 #include "syscall.h"
+#include "lib.h"
 
 /* システムコーーーーーーール，の，Wrapper */
 
@@ -11,6 +12,7 @@ kz_thread_id_t kz_run(kz_func_t func, char *name, int stacksize, int argc, char 
     param.un.run.stacksize = stacksize;
     param.un.run.argc = argc;
     param.un.run.argv = argv;
+    puts("calling\n");
     kz_syscall(KZ_SYSCALL_TYPE_RUN, &param);
     return param.un.run.ret;
 }

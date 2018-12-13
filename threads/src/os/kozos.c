@@ -79,7 +79,7 @@ static int putcurrent(void){
     return 0;
 }
 
-static int thread_end(void){
+static void thread_end(void){
     kz_exit();
 }
 
@@ -215,8 +215,9 @@ static void softerr_intr(void){
 static void thread_intr(softvec_type_t type, unsigned long sp){
     current->context.sp = sp;
 
-    if(handlers[type])
+    if(handlers[type]){
         handlers[type]();
+    }
 
     schedule();
 
@@ -254,5 +255,6 @@ void kz_sysdown(void){
 void kz_syscall(kz_syscall_type_t type, kz_syscall_param_t *param){
     current->syscall.type = type;
     current->syscall.param = param;
+    puts("trapping\n");
     asm volatile("trapa #0"); /* 割り込み発行 */
 }

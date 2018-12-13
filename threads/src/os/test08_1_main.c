@@ -5,7 +5,7 @@
 int test08_1_main(int argc, char *argv[]){
     char buf[32];
 
-    puts("command line for test started");
+    puts("test started\n");
 
     while(1){
         puts("> ");

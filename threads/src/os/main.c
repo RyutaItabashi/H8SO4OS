@@ -3,7 +3,8 @@
 #include "interrupt.h"
 #include "lib.h"
 
-static start_threads(int argc, char *argv[]){
+static int start_threads(int argc, char *argv[]){
+    puts("initial thread start\n");
     kz_run(test08_1_main, "command", 0x100, 0, NULL);
     return 0;
 }
