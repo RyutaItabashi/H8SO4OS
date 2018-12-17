@@ -6,6 +6,7 @@
 #include "lib.h"
 
 #define THREAD_NUM 6
+#define PRIORITY_NUM 16
 #define THREAD_NAME_SIZE 15
 
 /* スレッドコンテクスト */
@@ -17,7 +18,10 @@ typedef struct _kz_context {
 typedef struct _kz_thread {
     struct _kz_thread *next;
     char name[THREAD_NAME_SIZE + 1];
+	int priority;
     char *stack;
+	uint32 flags;
+	#define KZ_THREAD_FLAG_READY (1 << 0)
 
     struct {
         kz_func_t func;
@@ -37,7 +41,7 @@ typedef struct _kz_thread {
 static struct {
     kz_thread *head;
     kz_thread *tail;
-} readyque;
+} readyque[PRIORITY_NUM];
 
 static kz_thread *current;
 static kz_thread threads[THREAD_NUM];
