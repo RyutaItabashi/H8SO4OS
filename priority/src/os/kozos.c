@@ -54,12 +54,16 @@ static int getcurrent(void){
     if (current == NULL){
         return -1;
     }
+	if (!(current->flags & KZ_THREAD_FLAG_READY)){
+		return 1;
+	}
 
     /* カレントスレッドは先頭にあるはずなので，先頭から抜き出す */
-    readyque.head = current->next;
-    if(readyque.head == NULL){
-        readyque.tail = NULL;
-    }
+	readyque[current->priority].head = current->next;
+	id (readyque[current->priority].head == NULL) {
+		readyque[current->priority].tail = NULL;
+	}
+	current->flags &= ~KZ_THREAD_FLAGS_READY;
     current->next = NULL;
 
     return 0;
@@ -71,15 +75,18 @@ static int putcurrent(void){
     if(current == NULL){
         return -1;
     }
+	if(current->flags & KZ_THREAD_FLAGS_READY){
+		return 1;
+	}
 
     /* レディーキューの末尾に接続する */
-    if(readyque.tail) {
-        readyque.tail->next = current;
-    } else {
-        readyque.head = current;
-    }
-    readyque.tail = current;
-
+	if(readyque[current->priority].tail) {
+		readyque[current->priority].tail->next = current;
+	} else {
+		readyque[currrent->priority].head = current;
+	}
+	readyque[current->priority].tail = current;
+	current->flags |= KZ_THREAD_FLAGS_READY;
     return 0;
 }
 
