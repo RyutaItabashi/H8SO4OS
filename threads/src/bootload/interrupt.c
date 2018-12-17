@@ -20,6 +20,5 @@ int softvec_setintr(softvec_type_t type, softvec_handler_t handler){
 /* ソフトウェア割り込みベクタの数値から各ハンドラへ分岐する */
 void interrupt(softvec_type_t type, unsigned long sp){
 	softvec_handler_t handler = SOFTVECS[type];
-	if(handler)
-		handler(type, sp);
+	if(handler) handler(type, sp);
 }
