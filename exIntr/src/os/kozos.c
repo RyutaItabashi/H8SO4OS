@@ -368,7 +368,7 @@ static void call_functions(kz_syscall_type_t type, kz_syscall_param_t *p){
 			p->un.recv.ret = thread_recv(p->un.recv.id, p->un.recv.sizep, p->un.recv.pp);
 			break;
 		case KZ_SYSCALL_TYPE_SETINTR:
-			p->un.setintr.ret = thread_setintr(p->un.setintr.type, p->u.setintr.handler);
+			p->un.setintr.ret = thread_setintr(p->un.setintr.type, p->un.setintr.handler);
 			break;
 		default:
             break;
@@ -383,7 +383,7 @@ static void syscall_proc(kz_syscall_type_t type, kz_syscall_param_t *p){
 
 static void srvcall_proc(kz_syscall_type_t type, kz_syscall_param_t *p){
 	current = NULL;
-	call_functions(type, t);
+	call_functions(type, p);
 }
 
 static void schedule(void){
@@ -461,6 +461,6 @@ void kz_syscall(kz_syscall_type_t type, kz_syscall_param_t *param){
 }
 
 void kz_srvcall(kz_syscall_type_t type, kz_syscall_param_t *param){
-	srtcall_proc(type, param);
+	srvcall_proc(type, param);
 }
 

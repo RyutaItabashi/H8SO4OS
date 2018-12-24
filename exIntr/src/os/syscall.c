@@ -92,6 +92,7 @@ int kz_setintr(softvec_type_t type, kz_handler_t handler){
 	param.un.setintr.handler = handler;
 	kz_syscall(KZ_SYSCALL_TYPE_SETINTR, &param);
 	return param.un.setintr.ret;
+}
 
 	/* サービスコール */
 int kx_wakeup(kz_thread_id_t id){	
@@ -101,7 +102,7 @@ int kx_wakeup(kz_thread_id_t id){
     return param.un.wakeup.ret;
 }
 
-int *kx_kmalloc(int size){
+void *kx_kmalloc(int size){
 	kz_syscall_param_t param;
 	param.un.kmalloc.size = size;
 	kz_srvcall(KZ_SYSCALL_TYPE_KMALLOC, &param);
@@ -115,7 +116,7 @@ int kx_kmfree(void *p){
 	return param.un.kmfree.ret;
 }
 
-int kx_send(kz_msgbox_id_t id, int size. char *p){
+int kx_send(kz_msgbox_id_t id, int size, char *p){
 	kz_syscall_param_t param;
 	param.un.send.id = id;
 	param.un.send.size = size;
